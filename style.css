@@ -1,143 +1,217 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Syne:wght@600;800&display=swap');
 
-/* --- Estilos Generales --- */
+/* ---------- Paleta y base ---------- */
+:root {
+    --tinta: #1B1340;
+    --violeta: #A588F4;
+    --bruma: #F2EFFB;
+    --ambar: #FFC857;
+    --blanco: #ffffff;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }                      /* propiedad nueva 1 */
+
 body {
-    font-family: sans-serif;
-    margin: 70px;
-    margin-top:0;
-    padding: 2em;
-    background-color: #f4f4f4;
-}
-
-
-h1, h2 {
-    font-family: 'Space Mono';
-    color: #333;
-}
-
-h3{
-    font-family: 'Open Sans';
-    font-size: 1em;
-}
-
-/* --- Contenedor Principal --- */
-#container {
-    display: grid;
-    /* Define 2 columnas: la primera ocupa 1 fracción, la segunda 2 fracciones */
-    grid-template-columns: 1fr 2fr;
-    gap: 5em; /* Espacio entre las columnas */
-    align-items: start; /* Alinea los items al inicio */
-}
-
-/* --- Columna Izquierda: Intro --- */
-.intro {
-    /* Por defecto, se ubica en la primera columna del grid */
-    display: flex;
-    flex-direction: column; /* Organiza los elementos internos en una columna */
-    justify-content: center; /* Centra el contenido verticalmente */
-}
-
-.intro p {
-    /* El párrafo ya usa el ancho de su contenedor por defecto */
-    font-family: 'Open Sans';
-    text-align: justify;
+    margin: 0;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--tinta);
+    background: var(--bruma);
     line-height: 1.6;
 }
 
-.intro a {
-    /* El ancla del botón se centrará gracias al 'align-self' */
-    align-self: center; /* Centra este elemento específico en el eje transversal */
-    margin-top: 1em;
-}
+::selection { background: var(--ambar); color: var(--tinta); }   /* nueva 2 */
 
-.intro button {
-    font-family: 'Space Mono';
-    font-size: 1em;
-    padding: 15px 45px;
-    margin-top: 30px;
-    border: none;
-    background-color: #a588f4;
-    color: #000;
- 
-    cursor: pointer;
-    border-radius: 50px;
-    
-}
-
-.intro button:hover {
-    background: #000; ;
-    color: white;
-
-}
-
-
-/* Columna Derecha: Proyectos */
-.proyectos {
-    display: flex;
-    flex-direction: column;
-    /* Por defecto, se ubica en la segunda columna del grid */
-}
-
-/* --- Galería de Proyectos --- */
-.galeria {
-    display: grid;
-    /* Define 3 columnas de igual tamaño */
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5em; /* Espacio entre las tarjetas */
-}
-
-/* --- Tarjetas Individuales --- */
-.tarjeta {
-    background-color: rgb(255, 255, 255);
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    overflow: hidden; /* Asegura que la imagen no se salga de los bordes redondeados */
-}
-
-.tarjeta a {
-    /* El ancla ocupa todo el espacio de su columna en la galería */
-    display: block; /* Permite que el ancla ocupe todo el espacio */
-    width: 100%;
-    text-decoration: none;
-    color: inherit;
-    transition: transform 0.2s ease-in-out;
-}
-
-.tarjeta a:hover {
-    filter: brightness(70%); /* Aplica un filtro de brillo al 70% (más oscuro) */
-    transform: scale(1.05); /* Efecto de zoom al pasar el mouse */
-}
-
-.tarjeta img {
-    /* La imagen se ajusta al ancho del ancla */
-    width: 100%;
-    display: block; /* Elimina espacios en blanco debajo de la imagen */
-}
-
-.tarjeta h3 {
-    text-align: center;
-    padding: 0.5em 0;
+h1, h2, h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    line-height: 1;
     margin: 0;
 }
 
+h2 { font-size: clamp(2rem, 5vw, 3.5rem); }
+h3 { font-size: 1.6rem; }
 
-/* --- Media Query para pantallas pequeñas --- */
-@media (max-width: 900px) {
-    
-    /* Ajusta los márgenes del body para aprovechar el espacio */
-    body {
-        margin: 20px;
-        padding: 1em;
-    }
+a:focus-visible { outline: 3px solid var(--ambar); outline-offset: 3px; }
 
-    /* Cambia el contenedor principal a una sola columna */
-    #container {
-        grid-template-columns: 1fr;
-    }
+/* ---------- Barra fija ---------- */
+.barra {
+    position: fixed;                                   /* nueva 3 */
+    top: 0; left: 0; right: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(27, 19, 64, 0.55);
+    backdrop-filter: blur(10px);                       /* nueva 4 */
+}
 
-    /* Cambia la galería de proyectos a una sola columna */
-    .galeria {
-        grid-template-columns: 1fr;
-    }
+.barra a { color: var(--blanco); text-decoration: none; }
+
+.marca { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem; }
+
+.barra nav { display: flex; gap: 1.5rem; }
+
+.barra nav a {
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;                     /* nueva 5 */
+}
+.barra nav a:hover { border-bottom-color: var(--ambar); }
+
+/* ---------- Botones ---------- */
+.boton {
+    display: inline-block;
+    padding: 0.9rem 2rem;
+    background: var(--violeta);
+    color: var(--tinta);
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 999px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.boton:hover {
+    transform: translateY(-4px);                       /* nueva 6 */
+    box-shadow: 0 6px 0 var(--ambar);                  /* nueva 7 */
+}
+.boton--claro { background: var(--blanco); }
+
+/* ---------- 1. Hero ---------- */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 6rem 2rem 4rem;
+    color: var(--blanco);
+    background:
+        linear-gradient(to top, rgba(27, 19, 64, 0.9), rgba(27, 19, 64, 0.2)),
+        url('assets/imagen1.png') center / cover;
+    animation: entrada 1s ease-out;                    /* nueva 8 */
+}
+
+.hero h1 {
+    font-size: clamp(3.5rem, 13vw, 10rem);
+    letter-spacing: -0.03em;                           /* nueva 9 */
+    text-shadow: 4px 4px 0 var(--violeta);             /* nueva 10 */
+}
+
+.hero p { max-width: 40ch; font-size: 1.15rem; margin: 0; }
+
+@keyframes entrada {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: none; }
+}
+
+/* ---------- 2. sobre el curso ---------- */
+.sobre-el-curso {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    padding: 6rem 2rem;
+}
+
+.sobre-mi__texto p { margin: 0 0 1rem; max-width: 60ch; }
+
+.datos {
+    list-style: none;
+    margin: 0;
+    padding: 1.5rem;
+    background: var(--blanco);
+    border-radius: 6px;
+    box-shadow: 8px 8px 0 var(--violeta);
+}
+.datos li { padding: 0.5rem 0; }
+.datos strong { display: block; font-family: 'Syne', sans-serif; }
+
+/* ---------- 3. Proceso ---------- */
+.proceso {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+    padding: 5rem 2rem;
+    background: var(--ambar);
+}
+.proceso h2 { grid-column: 1 / -1; }
+
+.paso { padding-top: 1rem; border-top: 4px solid var(--tinta); }
+.paso p { margin: 0.75rem 0 0; }
+
+/* ---------- 4. Proyectos (bandas) ---------- */
+.proyectos h2 { padding: 5rem 2rem 2rem; }
+
+.banda {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    min-height: 70vh;
+    padding: 4rem 2rem;
+}
+.banda:nth-child(even) { background: var(--tinta); color: var(--blanco); }
+
+.banda__imagen {
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;                             /* nueva 11 */
+    border-radius: 6px;
+    box-shadow: 0 16px 40px rgba(27, 19, 64, 0.35);
+}
+.banda__imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;                                 /* nueva 12 */
+    display: block;
+    transition: transform 0.4s, filter 0.4s;
+}
+.banda__imagen:hover img {
+    transform: scale(1.06);                            /* nueva 13 */
+    filter: saturate(1.4) hue-rotate(-15deg);          /* nueva 14 */
+}
+
+.banda__texto { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
+.banda__texto p { margin: 0; max-width: 40ch; }
+
+/* ---------- 5. Contacto ---------- */
+.contacto {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 6rem 2rem;
+    background: var(--violeta);
+}
+.contacto p { margin: 0; max-width: 45ch; }
+.contacto .boton { background: var(--tinta); color: var(--blanco); }
+.contacto .boton--claro { background: var(--blanco); color: var(--tinta); }
+.contacto__botones { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+/* ---------- Pie ---------- */
+.pie { padding: 2rem; background: var(--tinta); color: var(--blanco); text-align: center; }
+.pie p { margin: 0; }
+
+/* ---------- Responsividad ---------- */
+@media (min-width: 801px) {
+    .banda:nth-child(even) .banda__imagen { order: 2; }   /* alterna lado de la imagen */
+}
+
+@media (max-width: 800px) {
+    .barra { padding: 0.8rem 1rem; }
+    .barra nav { gap: 0.8rem; font-size: 0.9rem; }
+
+    .sobre-mi,
+    .proceso,
+    .banda { grid-template-columns: 1fr; }
+
+    .banda { min-height: auto; gap: 1.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero { animation: none; }
+    html { scroll-behavior: auto; }
 }
